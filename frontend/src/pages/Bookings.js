@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 function Bookings() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
-  const currentUser = user?.user || user;
 
   const [data, setData] = useState([]);
 
@@ -14,7 +13,7 @@ function Bookings() {
   }, []);
 
   const fetchBookings = async () => {
-    const res = await axios.get(`/api/bookings/${currentUser._id}`);
+    const res = await axios.get(`/api/bookings/${user._id}`);
     setData(res.data);
   };
 

@@ -16,14 +16,16 @@ function Login() {
     try {
       if (isRegister) {
         const res = await axios.post("/api/auth/register", form);
-        localStorage.setItem("user", JSON.stringify(res.data));
+
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         navigate("/events");
       } else {
         const res = await axios.post("/api/auth/login", {
           email: form.email,
           password: form.password
         });
-        localStorage.setItem("user", JSON.stringify(res.data));
+
+        localStorage.setItem("user", JSON.stringify(res.data.user));
         navigate("/events");
       }
     } catch (err) {

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 function Events() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
-  const currentUser = user?.user || user;
 
   const [events, setEvents] = useState([]);
   const [search, setSearch] = useState("");
@@ -46,9 +45,10 @@ function Events() {
   const handleBook = async (id) => {
     try {
       await axios.post("/api/bookings", {
-        userId: currentUser._id,
+        userId: user._id,
         eventId: id
       });
+
       alert("Booked Successfully");
       fetchEvents();
     } catch (err) {
@@ -116,7 +116,7 @@ function Events() {
           />
         </div>
 
-        {currentUser?.role === "admin" && (
+        {user?.role === "admin" && (
           <div style={styles.formCard}>
             <h3 style={styles.formHeading}>Add Event</h3>
 
@@ -190,7 +190,7 @@ function Events() {
                   {e.bookedSeats >= e.totalSeats ? "Full" : "Book"}
                 </button>
 
-                {currentUser?.role === "admin" && (
+                {user?.role === "admin" && (
                   <button
                     onClick={() => handleDelete(e._id)}
                     style={styles.deleteBtn}
