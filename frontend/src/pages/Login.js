@@ -15,22 +15,14 @@ function Login() {
   const handleSubmit = async () => {
     try {
       if (isRegister) {
-        const res = await axios.post(
-          "https://capstone-project-jpbp.onrender.com/api/auth/register",
-          form
-        );
-
+        const res = await axios.post("/api/auth/register", form);
         localStorage.setItem("user", JSON.stringify(res.data));
         navigate("/events");
       } else {
-        const res = await axios.post(
-          "https://capstone-project-jpbp.onrender.com/api/auth/login",
-          {
-            email: form.email,
-            password: form.password
-          }
-        );
-
+        const res = await axios.post("/api/auth/login", {
+          email: form.email,
+          password: form.password
+        });
         localStorage.setItem("user", JSON.stringify(res.data));
         navigate("/events");
       }

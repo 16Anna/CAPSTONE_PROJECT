@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const path = require("path");
 require("dotenv").config();
 
 const authRoutes = require("./routes/authRoutes");
@@ -9,11 +10,7 @@ const bookingRoutes = require("./routes/bookingRoutes");
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "*"
-  })
-);
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
@@ -25,8 +22,11 @@ mongoose
   .then(() => console.log("MongoDB Atlas Connected"))
   .catch((err) => console.log(err));
 
-app.get("/", (req, res) => {
-  res.send("API is running...");
+const frontendPath = path.join(__dirname, "../frontend/build");
+app.use(express.static(frontendPath));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(frontendPath, "index.html"));
 });
 
 const PORT = process.env.PORT || 5000;

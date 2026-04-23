@@ -23,18 +23,13 @@ function Events() {
   }, []);
 
   const fetchEvents = async () => {
-    const res = await axios.get(
-      "https://capstone-project-jpbp.onrender.com/api/events"
-    );
+    const res = await axios.get("/api/events");
     setEvents(res.data);
   };
 
   const handleAdd = async () => {
     try {
-      await axios.post(
-        "https://capstone-project-jpbp.onrender.com/api/events",
-        form
-      );
+      await axios.post("/api/events", form);
       setForm({
         title: "",
         description: "",
@@ -50,13 +45,10 @@ function Events() {
 
   const handleBook = async (id) => {
     try {
-      await axios.post(
-        "https://capstone-project-jpbp.onrender.com/api/bookings",
-        {
-          userId: currentUser._id,
-          eventId: id
-        }
-      );
+      await axios.post("/api/bookings", {
+        userId: currentUser._id,
+        eventId: id
+      });
       alert("Booked Successfully");
       fetchEvents();
     } catch (err) {
@@ -66,9 +58,7 @@ function Events() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(
-        `https://capstone-project-jpbp.onrender.com/api/events/${id}`
-      );
+      await axios.delete(`/api/events/${id}`);
       fetchEvents();
     } catch (err) {
       alert(err.response?.data?.message || "Delete failed");
