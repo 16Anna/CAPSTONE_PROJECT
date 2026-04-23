@@ -25,7 +25,11 @@ mongoose
 const frontendPath = path.join(__dirname, "../frontend/build");
 app.use(express.static(frontendPath));
 
-app.get("*", (req, res) => {
+// serve React app for all non-API routes
+app.use((req, res, next) => {
+  if (req.path.startsWith("/api/")) {
+    return next();
+  }
   res.sendFile(path.join(frontendPath, "index.html"));
 });
 
