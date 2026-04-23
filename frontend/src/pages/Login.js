@@ -16,7 +16,7 @@ function Login() {
     try {
       if (isRegister) {
         const res = await axios.post(
-          "http://localhost:5000/api/auth/register",
+          "https://capstone-project-jpbp.onrender.com/api/auth/register",
           form
         );
 
@@ -24,7 +24,7 @@ function Login() {
         navigate("/events");
       } else {
         const res = await axios.post(
-          "http://localhost:5000/api/auth/login",
+          "https://capstone-project-jpbp.onrender.com/api/auth/login",
           {
             email: form.email,
             password: form.password

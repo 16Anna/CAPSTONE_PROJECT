@@ -15,14 +15,16 @@ function Bookings() {
 
   const fetchBookings = async () => {
     const res = await axios.get(
-      `http://localhost:5000/api/bookings/${currentUser._id}`
+      `https://capstone-project-jpbp.onrender.com/api/bookings/${currentUser._id}`
     );
     setData(res.data);
   };
 
   const handleCancel = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/bookings/${id}`);
+      await axios.delete(
+        `https://capstone-project-jpbp.onrender.com/api/bookings/${id}`
+      );
       fetchBookings();
     } catch (err) {
       alert(err.response?.data?.message || "Cancel failed");
